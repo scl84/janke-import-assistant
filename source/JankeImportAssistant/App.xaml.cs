@@ -23,7 +23,8 @@ namespace JankeImportAssistant
 
             if (!config.IsValid()) throw new Exception("Invalid configuration file, refer to manual");
 
-            _ = new MainWindow(config);
+            var window = new MainWindow(config);
+            window.Show();
         }
 
         private static string? BinaryPath()
