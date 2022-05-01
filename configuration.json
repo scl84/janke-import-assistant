@@ -1,0 +1,200 @@
+{
+    "userId": 68,
+    "drawingDirectory": "c:/temp",
+    "colours": [
+        {
+            "label": "Pearl White",
+            "code": "8310-0001"
+        },
+        {
+            "label": "Black Matt",
+            "code": "8310-0021"
+        },
+        {
+            "label": "Black Satin",
+            "code": "8310-0022"
+        },
+        {
+            "label": "Flame Red",
+            "code": "8310-0033"
+        },
+        {
+            "label": "Janke Green",
+            "code": "8310-0048"
+        }
+    ],
+    "unitsOfMeasurement": [
+        {
+            "label": "Box",
+            "code": "BOX"
+        },
+        {
+            "label": "Each",
+            "code": "EA"
+        },
+        {
+            "label": "Kilograms",
+            "code": "KG"
+        },
+        {
+            "label": "Litre",
+            "code": "LTR"
+        },
+        {
+            "label": "Length",
+            "code": "LGT"
+        },
+        {
+            "label": "Millimetre",
+            "code": "MM"
+        },
+        {
+            "label": "Metre",
+            "code": "MTR"
+        },
+        {
+            "label": "Pack",
+            "code": "PA"
+        },
+        {
+            "label": "Pair",
+            "code": "PAR"
+        },
+        {
+            "label": "Roll",
+            "code": "ROLL"
+        },
+        {
+            "label": "Square Metre",
+            "code": "SQM"
+        }
+    ],
+    "workCentres": [
+        {
+            "label": "PROGRAMMING Lazer Nesting",
+            "code": "1"
+        },
+        {
+            "label": "LASER Mitsubishi",
+            "code": "2"
+        },
+        {
+            "label": "LASER Amada LCV 6812",
+            "code": "3"
+        },
+        {
+            "label": "PROFILE Esab Plasma Oxy",
+            "code": "5"
+        },
+        {
+            "label": "BRAKEPRESS Amada HDS 1303 NT",
+            "code": "6"
+        },
+        {
+            "label": "BRAKEPRESS Dye 220 DNC 880S",
+            "code": "7"
+        },
+        {
+            "label": "BANDSAW",
+            "code": "11"
+        },
+        {
+            "label": "ENGINEERING Drafting",
+            "code": "13"
+        },
+        {
+            "label": "ADMINISTRATION",
+            "code": "14"
+        },
+        {
+            "label": "WELD Fabrication",
+            "code": "15"
+        },
+        {
+            "label": "POWERDERCOAT",
+            "code": "16"
+        },
+        {
+            "label": "SANDBLAST",
+            "code": "17"
+        },
+        {
+            "label": "INSPECTION",
+            "code": "25"
+        },
+        {
+            "label": "INSPECTION Final",
+            "code": "26"
+        },
+        {
+            "label": "DISPATCH",
+            "code": "30"
+        },
+        {
+            "label": "LATHE Doosan 220LSY",
+            "code": "37"
+        },
+        {
+            "label": "MILL Doosan DNM 6700",
+            "code": "38"
+        },
+        {
+            "label": "MILL HAFCO Manual",
+            "code": "53"
+        },
+        {
+            "label": "PRESS Hydraulic",
+            "code": "55"
+        },
+        {
+            "label": "PRESS Mechanical",
+            "code": "63"
+        },
+        {
+            "label": "PRESS Pneumatic",
+            "code": "65"
+        },
+        {
+            "label": "SUB WATERJET",
+            "code": "101"
+        },
+        {
+            "label": "SUB LASERCUT",
+            "code": "102"
+        },
+        {
+            "label": "SUB POWDERCOAT",
+            "code": "103"
+        },
+        {
+            "label": "SUB PAINTING",
+            "code": "104"
+        },
+        {
+            "label": "SUB MACHINING",
+            "code": "105"
+        },
+        {
+            "label": "SUB ROLLFORM",
+            "code": "106"
+        },
+        {
+            "label": "SUB WELDING",
+            "code": "107"
+        },
+        {
+            "label": "SUB ZINCPLATE",
+            "code": "108"
+        }
+    ],
+    "componentTypes": [
+        {
+            "label": "Material",
+            "code": "M"
+        },
+        {
+            "label": "Part",
+            "code": "P"
+        }
+    ]
+}
