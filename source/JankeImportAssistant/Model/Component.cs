@@ -5,6 +5,10 @@ namespace JankeImportAssistant.Model
 {
     public class Component
     {
+        public Component()
+        {
+        }
+
         public Component(string type, string build, string unit, string quantity)
         {
             Type = type;

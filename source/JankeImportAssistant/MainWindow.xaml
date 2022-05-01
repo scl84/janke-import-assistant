@@ -3,10 +3,167 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:JankeImportAssistant"
+        xmlns:local="clr-namespace:JankeImportAssistant.Model"
+        d:DataContext="{d:DesignInstance local:Part, IsDesignTimeCreatable=True}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Janke Import Assistant" Height="750" Width="760" Background="#FFB9B1B1">
     <Grid>
-
+        <GroupBox Header="General" VerticalAlignment="Top" FontWeight="Bold" Height="190" Width="720" Margin="10,10,10,10" Background="#FFF1EDED" BorderBrush="Black">
+            <Grid Margin="10,0,10,0" Height="180">
+                <StackPanel Orientation="Horizontal" Width="720">
+                    <StackPanel Orientation="Vertical" Width="360" Margin="10,10,10,10">
+                        <Label Content="Part Number" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                        <TextBox FontWeight="Normal" TextWrapping="Wrap" HorizontalAlignment="Left" Text="{Binding PartNumber}" Margin="0,0,0,6" Width="160"/>
+                        <Label Content="Revision" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                        <TextBox FontWeight="Normal" TextWrapping="Wrap" HorizontalAlignment="Left" Text="{Binding Revision}" Margin="0,0,0,6" Width="160"/>
+                        <Label Content="Description" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                        <TextBox FontWeight="Normal" TextWrapping="Wrap" HorizontalAlignment="Left" Text="{Binding Description}" Width="300"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Width="300" Margin="20,10,10,10">
+                        <Label Content="Multi" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                        <TextBox FontWeight="Normal" TextWrapping="Wrap" HorizontalAlignment="Left" Text="{Binding Multi}" Width="160" Margin="0,0,0,6"/>
+                        <Label Content="Group" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                        <TextBox FontWeight="Normal" TextWrapping="Wrap" HorizontalAlignment="Left" Text="{Binding Group}" Width="160" Margin="0,0,0,6"/>
+                        <Label Content="Lead time" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                        <TextBox FontWeight="Normal" TextWrapping="Wrap" HorizontalAlignment="Left" Text="{Binding LeadTime}" Width="160" Margin="0,0,0,6"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Components" VerticalAlignment="Top" FontWeight="Bold" Height="165" Width="720" Margin="10,210,10,0" Background="#FFF1EAEA" BorderBrush="Black">
+            <Grid Margin="10,0,10,0" Height="135">
+                <DataGrid FontWeight="Normal" ItemsSource="{Binding Components}" CanUserAddRows="True" CanUserDeleteRows="True" AutoGenerateColumns="False">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.Columns>
+                        <DataGridComboBoxColumn SelectedValueBinding="{Binding Type}"
+                                  SelectedValuePath="Code" DisplayMemberPath="Label" Header="Type" Width="110">
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding Path=DataContext.Configuration.ComponentTypes, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                    <Setter Property="IsReadOnly" Value="True"/>
+                                    <Setter Property="ItemTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Path=Label}"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding Path=DataContext.Configuration.ComponentTypes, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                    <Setter Property="ItemTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Path=Label}"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>
+                        <DataGridTextColumn Header="Build" Width="280" Binding="{Binding Build}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Quantity" Width="160" Binding="{Binding Quantity}"></DataGridTextColumn>
+                        <DataGridComboBoxColumn SelectedValueBinding="{Binding Unit}"
+                                  SelectedValuePath="Code" DisplayMemberPath="Label" Header="Unit" Width="130">
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding Path=DataContext.Configuration.UnitsOfMeasurement, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                    <Setter Property="IsReadOnly" Value="True"/>
+                                    <Setter Property="ItemTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Path=Label}"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding Path=DataContext.Configuration.UnitsOfMeasurement, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                    <Setter Property="ItemTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Path=Label}"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Labor" VerticalAlignment="Top" FontWeight="Bold" Height="140" Width="720" Margin="10,386,10,0" Background="#FFF1EAEA" BorderBrush="Black">
+            <Grid Margin="10,0,10,0" Height="120">
+                <DataGrid FontWeight="Normal" ItemsSource="{Binding Labors}" CanUserAddRows="True" CanUserDeleteRows="True" AutoGenerateColumns="False">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                    <DataGrid.Columns>
+                        <DataGridComboBoxColumn SelectedValueBinding="{Binding WorkCentre}"
+                                  SelectedValuePath="Code" DisplayMemberPath="Label" Header="Work Centre" Width="160">
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding Path=DataContext.Configuration.WorkCentres, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                    <Setter Property="IsReadOnly" Value="True"/>
+                                    <Setter Property="ItemTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Path=Label}"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style TargetType="ComboBox">
+                                    <Setter Property="ItemsSource" Value="{Binding Path=DataContext.Configuration.WorkCentres, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                    <Setter Property="ItemTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Path=Label}"/>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>
+                        <DataGridTextColumn Header="Setup Time" Width="120" Binding="{Binding SetupTime}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Production Time" Width="120" Binding="{Binding ProductionTime}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Description" Width="280" Binding="{Binding Description}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Colour (if applicable)" VerticalAlignment="Top" FontWeight="Bold" Height="95" Width="720" Margin="10,535,10,0" Background="#FFF1EAEA" BorderBrush="Black">
+            <Grid Margin="10,0,10,0" Height="80">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical" Margin="20,0,80,0">
+                        <Label Content="Colour" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                        <ComboBox Width="280" ItemsSource="{Binding Configuration.Colours}" DisplayMemberPath="Label" SelectedValuePath="Code" SelectedValue="{Binding Path=Colour}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="20,0,0,0">
+                        <Label HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top">
+                            <Run Text="Surface Area ( mm&#x00B2; )"/>
+                        </Label>
+                        <TextBox FontWeight="Normal" TextWrapping="Wrap" HorizontalAlignment="Left" Text="{Binding SurfaceArea}" Width="250" Margin="0,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <!--<Button Content="Previous" HorizontalAlignment="Left" Margin="30,665,0,0" VerticalAlignment="Top" Height="25" Width="100" Click="Back"/>
+        <Button Content="Next" HorizontalAlignment="Left" Margin="140,665,0,0" VerticalAlignment="Top" Height="25" Width="100" Click="Forward"/>-->
+        <Button Content="Add part" HorizontalAlignment="Left" Margin="508,665,0,0" VerticalAlignment="Top" Height="25" Width="100"/>
+        <Button Content="Export to CSV" HorizontalAlignment="Left" Margin="621,665,0,0" VerticalAlignment="Top" Height="25" Width="100"/>
     </Grid>
 </Window>

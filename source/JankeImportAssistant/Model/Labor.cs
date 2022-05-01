@@ -5,6 +5,10 @@ namespace JankeImportAssistant.Model
 {
     public class Labor
     {
+        public Labor()
+        {
+        }
+
         public Labor(string workCentre, string setupTime, string productionTime, string description)
         {
             WorkCentre = workCentre;

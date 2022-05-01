@@ -6,6 +6,15 @@ namespace JankeImportAssistant.Model
 {
     public class Part
     {
+        public Part()
+        {
+        }
+
+        public Part(Configuration configuration)
+        {
+            Configuration = configuration;
+        }
+
         public Part(
             string partNumber,
             string description,
@@ -121,5 +130,8 @@ namespace JankeImportAssistant.Model
         [Index(18)]
         [Name("info_filename")]
         public string InfoFilename { get; set; }
+
+        [Ignore]
+        public Configuration Configuration { get; set; }
     }
 }
