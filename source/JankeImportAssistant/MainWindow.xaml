@@ -163,7 +163,7 @@
         </GroupBox>
         <!--<Button Content="Previous" HorizontalAlignment="Left" Margin="30,665,0,0" VerticalAlignment="Top" Height="25" Width="100" Click="Back"/>
         <Button Content="Next" HorizontalAlignment="Left" Margin="140,665,0,0" VerticalAlignment="Top" Height="25" Width="100" Click="Forward"/>-->
-        <Button Content="Add part" HorizontalAlignment="Left" Margin="508,665,0,0" VerticalAlignment="Top" Height="25" Width="100"/>
+        <Button Content="Add part" HorizontalAlignment="Left" Margin="508,665,0,0" VerticalAlignment="Top" Height="25" Width="100" Click="AddPart"/>
         <Button Content="Export to CSV" HorizontalAlignment="Left" Margin="621,665,0,0" VerticalAlignment="Top" Height="25" Width="100"/>
     </Grid>
 </Window>
