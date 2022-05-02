@@ -13,6 +13,7 @@ namespace JankeImportAssistant.Model
             TotalRecords = totalRecords;
         }
 
+        public int? UserId => Configuration.UserId;
         public string PartNumber { get; set; }
         public string Description { get; set; }
         public string Revision { get; set; }
@@ -29,7 +30,7 @@ namespace JankeImportAssistant.Model
 
         public string GetInfoFileName()
         {
-            return $"{this.Configuration.DrawingDirectory}/{this.PartNumber}_{this.Revision}";
+            return $"{Configuration.DrawingDirectory}/{PartNumber}_{Revision}.pdf";
         }
 
         public bool IsCompletePart()

@@ -6,33 +6,9 @@ namespace JankeImportAssistant.Model
 {
     public class Part
     {
-        public Part()
-        {
-        }
-
-        public Part(string partNumber,
-            string description,
-            string revision, string
-            multi,
-            string group,
-            string leadTime,
-            ObservableCollection<Component> components,
-            ObservableCollection<Labor> labors,
-            string infoFilename)
-        {
-            PartNumber = partNumber;
-            Description = description;
-            Revision = revision;
-            Multi = multi;
-            Group = group;
-            LeadTime = leadTime;
-            Components = components;
-            Labors = labors;
-            InfoFilename = infoFilename;
-        }
-
         public Part(PartViewModel viewModel)
         {
+            UserId = viewModel.UserId.ToString();
             PartNumber = viewModel.PartNumber;
             Description = viewModel.Description;
             Revision = viewModel.Revision;
@@ -45,86 +21,90 @@ namespace JankeImportAssistant.Model
         }
 
         [Index(0)]
+        [Name("user_id")]
+        public string? UserId { get; set; }
+
+        [Index(1)]
         [Name("part_number")]
         public string PartNumber { get; set; }
 
-        [Index(1)]
+        [Index(2)]
         [Name("part_code")]
         public string PartCode => PartNumber;
 
-        [Index(2)]
+        [Index(3)]
         [Name("client_part_number")]
         public string ClientPartNumber => PartNumber;
 
-        [Index(3)]
+        [Index(4)]
         [Name("drawing_number")]
         public string DrawingNumber => PartNumber;
 
-        [Index(4)]
+        [Index(5)]
         [Name("description")]
         public string Description { get; set; }
 
-        [Index(5)]
+        [Index(6)]
         [Name("revision")]
         public string Revision { get; set; }
 
-        [Index(6)]
+        [Index(7)]
         [Name("multi")]
         public string Multi { get; set; }
 
-        [Index(7)]
+        [Index(8)]
         [Name("unit")]
         public string Unit => "EA";
 
-        [Index(8)]
+        [Index(9)]
         [Name("group")]
         public string Group { get; set; }
 
-        [Index(9)]
+        [Index(10)]
         [Name("is_active")]
         [BooleanTrueValues("yes")]
         [BooleanFalseValues("no")]
         public bool IsActive => true;
 
-        [Index(10)]
+        [Index(11)]
         [Name("lead_time")]
         public string LeadTime { get; set; }
 
-        [Index(11)]
+        [Index(12)]
         [Name("manu")]
         [BooleanTrueValues("yes")]
         [BooleanFalseValues("no")]
         public bool IsManufactured => true;
 
-        [Index(12)]
+        [Index(13)]
         [Name("components")]
         public ObservableCollection<Component> Components { get; } = new ObservableCollection<Component>();
 
-        [Index(13)]
+        [Index(14)]
         [Name("labor")]
         public ObservableCollection<Labor> Labors { get; } = new ObservableCollection<Labor>();
 
-        [Index(14)]
+        [Index(15)]
         [Name("info_description")]
         public string InfoDescription => "DRAWING";
 
-        [Index(15)]
+        [Index(16)]
         [Name("info_revision")]
         public string InfoRevision => Revision;
 
-        [Index(16)]
+        [Index(17)]
         [Name("info_jt-print")]
         [BooleanTrueValues("yes")]
         [BooleanFalseValues("no")]
         public bool InfoJtPrint => false;
 
-        [Index(17)]
+        [Index(18)]
         [Name("info_q-email")]
         [BooleanTrueValues("yes")]
         [BooleanFalseValues("no")]
         public bool InfoQEmail => true;
 
-        [Index(18)]
+        [Index(19)]
         [Name("info_filename")]
         public string InfoFilename { get; set; }
     }
