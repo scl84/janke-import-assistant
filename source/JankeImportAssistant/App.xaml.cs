@@ -17,14 +17,13 @@ namespace JankeImportAssistant
         {
             SetupUnhandledExceptionHandling();
             base.OnStartup(e);
-            string rawJson;
             Configuration config;
 
             try
             {
-                rawJson = File.ReadAllText(BinaryPath() + @"\configuration.json");
+                var rawJson = File.ReadAllText(BinaryPath() + @"\configuration.json");
                 config = JsonSerializer.Deserialize<Configuration>(rawJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
-                    ?? throw new Exception(ConfigInvalidErrorMessage);
+                         ?? throw new Exception(ConfigInvalidErrorMessage);
             }
             catch (FileNotFoundException)
             {
@@ -62,22 +61,18 @@ namespace JankeImportAssistant
             Dispatcher.UnhandledException += (sender, args) =>
             {
                 // If we are debugging, let Visual Studio handle the exception and take us to the code that threw it.
-                if (!Debugger.IsAttached)
-                {
-                    args.Handled = true;
-                    ShowUnhandledException(args.Exception);
-                }
+                if (Debugger.IsAttached) return;
+                args.Handled = true;
+                ShowUnhandledException(args.Exception);
             };
         }
 
         void ShowUnhandledException(Exception e)
         {
-            var messageBoxTitle = "Janke Import Assistant";
             var messageBoxMessage = $"The following exception occurred:\n\n{e.Message}";
-            var messageBoxButtons = MessageBoxButton.OK;
 
             // Let the user decide if the app should die or not (if applicable).
-            if (MessageBox.Show(messageBoxMessage, messageBoxTitle, messageBoxButtons) == MessageBoxResult.OK)
+            if (MessageBox.Show(messageBoxMessage, "Janke Import Assistant", MessageBoxButton.OK) == MessageBoxResult.OK)
             {
                 Current.Shutdown(-1);
             }

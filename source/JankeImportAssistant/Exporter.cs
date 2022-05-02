@@ -1,18 +1,18 @@
-﻿using CsvHelper;
-using JankeImportAssistant.Model;
-using Microsoft.Win32;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Xml.Serialization;
+using CsvHelper;
+using JankeImportAssistant.Model;
+using Microsoft.Win32;
 
 namespace JankeImportAssistant
 {
     public class Exporter
     {
-        const decimal _paintCoeffecient = 0.000000284M;
+        private const decimal PaintCoefficient = 0.000000284M;
         private readonly List<PartViewModel> _partViewModelList;
 
         public Exporter(List<PartViewModel> partViewModelList)
@@ -45,7 +45,6 @@ namespace JankeImportAssistant
                 case ".xml":
                     ExportToXml(outputFile, orderedParts);
                     break;
-                case ".csv":
                 default:
                     ExportToCsv(outputFile, orderedParts);
                     break;
@@ -59,7 +58,7 @@ namespace JankeImportAssistant
             SaveFileDialog saveFileDialog = new()
             {
                 DefaultExt = ".csv",
-                Filter = "Comma separated value (*.csv)|*.csv|JavaScript Object Notation|*.json|eXtensible Markup Language|*.xml"
+                Filter = "Comma separated value (*.csv)|*.csv|JavaScript Object Notation|*.json|Extensible Markup Language|*.xml"
             };
 
             return saveFileDialog.ShowDialog() == true ? saveFileDialog.FileName : null;
@@ -69,14 +68,13 @@ namespace JankeImportAssistant
         {
             var part = new Part(partViewModel);
 
-            if (!string.IsNullOrEmpty(partViewModel.Colour) && !string.IsNullOrEmpty(partViewModel.SurfaceArea))
-            {
-                decimal surfaceArea = decimal.Parse(partViewModel.SurfaceArea, CultureInfo.InvariantCulture);
-                string kgOfPaint = (surfaceArea * _paintCoeffecient).ToString();
+            if (string.IsNullOrEmpty(partViewModel.Colour) || string.IsNullOrEmpty(partViewModel.SurfaceArea)) return part;
+            
+            var surfaceArea = decimal.Parse(partViewModel.SurfaceArea, CultureInfo.InvariantCulture);
+            var kgOfPaint = (surfaceArea * PaintCoefficient).ToString(CultureInfo.InvariantCulture);
 
-                part.Components.Add(new Component("M", partViewModel.Colour, "Kg", kgOfPaint));
-                part.Components.Add(new Component("M", "8310-0000", "Kg", kgOfPaint));
-            }
+            part.Components.Add(new Component("M", partViewModel.Colour, "Kg", kgOfPaint));
+            part.Components.Add(new Component("M", "8310-0000", "Kg", kgOfPaint));
 
             return part;
         }
@@ -102,25 +100,23 @@ namespace JankeImportAssistant
 
         private void ExportToCsv(string outputFile, List<Part> orderedParts)
         {
-            using (var writer = new StreamWriter(outputFile))
-            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-            {
-                csv.WriteHeader<Part>();
-                csv.WriteHeader<Component>();
-                csv.WriteHeader<Labor>();
-                csv.NextRecord();
+            using var writer = new StreamWriter(outputFile);
+            using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+            csv.WriteHeader<Part>();
+            csv.WriteHeader<Component>();
+            csv.WriteHeader<Labor>();
+            csv.NextRecord();
 
-                foreach (var part in orderedParts)
+            foreach (var part in orderedParts)
+            {
+                foreach (var component in part.Components)
                 {
-                    foreach (var component in part.Components)
+                    foreach (var labor in part.Labors)
                     {
-                        foreach (var labor in part.Labors)
-                        {
-                            csv.WriteRecord(part);
-                            csv.WriteRecord(component);
-                            csv.WriteRecord(labor);
-                            csv.NextRecord();
-                        }
+                        csv.WriteRecord(part);
+                        csv.WriteRecord(component);
+                        csv.WriteRecord(labor);
+                        csv.NextRecord();
                     }
                 }
             }
@@ -128,14 +124,14 @@ namespace JankeImportAssistant
 
         private void ExportToJson(string outputFile, List<Part> orderedParts)
         {
-            string json = JsonSerializer.Serialize(orderedParts);
+            var json = JsonSerializer.Serialize(orderedParts);
             File.WriteAllText(outputFile, json);
         }
 
         private void ExportToXml(string outputFile, List<Part> orderedParts)
         {
             XmlSerializer writer = new(typeof(List<Part>), new XmlRootAttribute("Parts"));
-            FileStream file = File.Create(outputFile);
+            var file = File.Create(outputFile);
 
             writer.Serialize(file, orderedParts);
             file.Close();

@@ -1,6 +1,5 @@
-﻿using CsvHelper.Configuration.Attributes;
-using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using CsvHelper.Configuration.Attributes;
 
 namespace JankeImportAssistant.Model
 {
