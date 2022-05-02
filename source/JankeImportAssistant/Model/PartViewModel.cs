@@ -53,6 +53,30 @@ namespace JankeImportAssistant.Model
                 return false;
             }
 
+            foreach (Component component in Components)
+            {
+                if (component == null ||
+                    string.IsNullOrEmpty(component.Type) ||
+                    string.IsNullOrEmpty(component.Build) ||
+                    string.IsNullOrEmpty(component.Unit) ||
+                    string.IsNullOrEmpty(component.Quantity))
+                {
+                    return false;
+                }
+            }
+
+            foreach (Labor labor in Labors)
+            {
+                if (labor == null ||
+                    string.IsNullOrEmpty(labor.WorkCentre) ||
+                    string.IsNullOrEmpty(labor.SetupTime) ||
+                    string.IsNullOrEmpty(labor.ProductionTime) ||
+                    string.IsNullOrEmpty(labor.Description))
+                {
+                    return false;
+                }
+            }
+
             return true;
         }
     }

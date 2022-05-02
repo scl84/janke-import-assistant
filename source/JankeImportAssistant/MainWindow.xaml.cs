@@ -25,6 +25,7 @@ namespace JankeImportAssistant
             if (!_part.IsCompletePart())
             {
                 MessageBox.Show("Complete this part before adding a new one", "Add Part", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.No);
+                return;
             }
 
             _index = _partList.Count;
