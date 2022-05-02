@@ -12,7 +12,8 @@ namespace JankeImportAssistant
 {
     public class Exporter
     {
-        private List<PartViewModel> _partViewModelList;
+        const decimal _paintCoeffecient = 0.000000284M;
+        private readonly List<PartViewModel> _partViewModelList;
 
         public Exporter(List<PartViewModel> partViewModelList)
         {
@@ -21,6 +22,9 @@ namespace JankeImportAssistant
 
         public ExportResult Export()
         {
+            var outputFile = SaveExport();
+            if (string.IsNullOrEmpty(outputFile)) return new ExportResult(ExportStatus.Cancel, null);
+
             var partList = new List<Part>();
             foreach (var partViewModel in _partViewModelList)
             {
@@ -28,11 +32,8 @@ namespace JankeImportAssistant
                 partList.Add(BuildPart(partViewModel));
             }
 
-            var outputFile = SaveExport();
-            if (string.IsNullOrEmpty(outputFile)) return new ExportResult(false, "No valid file path selected for export");
-
             var orderedParts = OrderPartsByDependencies(partList);
-            if (orderedParts.Count < 1) return new ExportResult(false, "Invalid part hierarchy");
+            if (orderedParts.Count < 1) return new ExportResult(ExportStatus.Error, "Invalid part hierarchy");
 
             var fileType = Path.GetExtension(outputFile);
 
@@ -50,7 +51,7 @@ namespace JankeImportAssistant
                     break;
             }
 
-            return new ExportResult(true, null);
+            return new ExportResult(ExportStatus.Ok, null);
         }
 
         private string? SaveExport()
@@ -66,13 +67,18 @@ namespace JankeImportAssistant
 
         private Part BuildPart(PartViewModel partViewModel)
         {
+            var part = new Part(partViewModel);
+
             if (!string.IsNullOrEmpty(partViewModel.Colour) && !string.IsNullOrEmpty(partViewModel.SurfaceArea))
             {
-                partViewModel.Components.Add(new Component("M", partViewModel.Colour, "Kg", "1"));
-                partViewModel.Components.Add(new Component("M", "8310-0000", "Kg", "1"));
+                decimal surfaceArea = decimal.Parse(partViewModel.SurfaceArea, CultureInfo.InvariantCulture);
+                string kgOfPaint = (surfaceArea * _paintCoeffecient).ToString();
+
+                part.Components.Add(new Component("M", partViewModel.Colour, "Kg", kgOfPaint));
+                part.Components.Add(new Component("M", "8310-0000", "Kg", kgOfPaint));
             }
 
-            return new Part(partViewModel);
+            return part;
         }
 
         private List<Part> OrderPartsByDependencies(List<Part> parts)
@@ -138,14 +144,21 @@ namespace JankeImportAssistant
 
     public class ExportResult
     {
-        public ExportResult(bool success, string? message)
+        public ExportResult(ExportStatus status, string? message)
         {
-            Success = success;
+            Status = status;
             Message = message;
         }
 
-        public bool Success { get; }
+        public ExportStatus Status { get; }
         public string? Message { get; }
+    }
+
+    public enum ExportStatus
+    {
+        Ok,
+        Cancel,
+        Error
     }
 }
  

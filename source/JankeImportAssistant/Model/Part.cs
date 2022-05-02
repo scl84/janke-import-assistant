@@ -6,6 +6,12 @@ namespace JankeImportAssistant.Model
 {
     public class Part
     {
+// Parameterless constructor for serialisation
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public Part() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+
         public Part(PartViewModel viewModel)
         {
             UserId = viewModel.UserId.ToString();
@@ -15,8 +21,8 @@ namespace JankeImportAssistant.Model
             Multi = viewModel.Multi;
             Group = viewModel.Group;
             LeadTime = viewModel.LeadTime;
-            Components = viewModel.Components;
-            Labors = viewModel.Labors;
+            Components = new ObservableCollection<Component>(viewModel.Components);
+            Labors = new ObservableCollection<Labor>(viewModel.Labors);
             InfoFilename = viewModel.GetInfoFileName();
         }
 
@@ -78,11 +84,11 @@ namespace JankeImportAssistant.Model
 
         [Index(13)]
         [Name("components")]
-        public ObservableCollection<Component> Components { get; } = new ObservableCollection<Component>();
+        public ObservableCollection<Component> Components { get; set; }
 
         [Index(14)]
         [Name("labor")]
-        public ObservableCollection<Labor> Labors { get; } = new ObservableCollection<Labor>();
+        public ObservableCollection<Labor> Labors { get; set; }
 
         [Index(15)]
         [Name("info_description")]
