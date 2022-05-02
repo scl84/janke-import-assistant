@@ -10,20 +10,12 @@ namespace JankeImportAssistant.Model
         {
         }
 
-        public Part(Configuration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public Part(
-            string partNumber,
+        public Part(string partNumber,
             string description,
-            string revision,
-            string multi,
+            string revision, string
+            multi,
             string group,
             string leadTime,
-            string? colour,
-            string? surfaceArea,
             ObservableCollection<Component> components,
             ObservableCollection<Labor> labors,
             string infoFilename)
@@ -34,11 +26,22 @@ namespace JankeImportAssistant.Model
             Multi = multi;
             Group = group;
             LeadTime = leadTime;
-            Colour = colour;
-            SurfaceArea = surfaceArea;
             Components = components;
             Labors = labors;
             InfoFilename = infoFilename;
+        }
+
+        public Part(PartViewModel viewModel)
+        {
+            PartNumber = viewModel.PartNumber;
+            Description = viewModel.Description;
+            Revision = viewModel.Revision;
+            Multi = viewModel.Multi;
+            Group = viewModel.Group;
+            LeadTime = viewModel.LeadTime;
+            Components = viewModel.Components;
+            Labors = viewModel.Labors;
+            InfoFilename = viewModel.GetInfoFileName();
         }
 
         [Index(0)]
@@ -93,12 +96,6 @@ namespace JankeImportAssistant.Model
         [BooleanFalseValues("no")]
         public bool IsManufactured => true;
 
-        [Ignore]
-        public string? Colour { get; set; }
-
-        [Ignore]
-        public string? SurfaceArea { get; set; }
-
         [Index(12)]
         [Name("components")]
         public ObservableCollection<Component> Components { get; } = new ObservableCollection<Component>();
@@ -130,8 +127,5 @@ namespace JankeImportAssistant.Model
         [Index(18)]
         [Name("info_filename")]
         public string InfoFilename { get; set; }
-
-        [Ignore]
-        public Configuration Configuration { get; set; }
     }
 }

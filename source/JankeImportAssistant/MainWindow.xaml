@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JankeImportAssistant.Model"
-        d:DataContext="{d:DesignInstance local:Part, IsDesignTimeCreatable=True}"
+        d:DataContext="{d:DesignInstance local:PartViewModel, IsDesignTimeCreatable=True}"
         mc:Ignorable="d"
         Title="Janke Import Assistant" Height="750" Width="760" Background="#FFB9B1B1">
     <Grid>
@@ -103,7 +103,7 @@
         </GroupBox>
         <GroupBox Header="Labor" VerticalAlignment="Top" FontWeight="Bold" Height="140" Width="720" Margin="10,386,10,0" Background="#FFF1EAEA" BorderBrush="Black">
             <Grid Margin="10,0,10,0" Height="120">
-                <DataGrid FontWeight="Normal" ItemsSource="{Binding Labors}" CanUserAddRows="True" CanUserDeleteRows="True" AutoGenerateColumns="False">
+                <DataGrid FontWeight="Normal" ItemsSource="{Binding Labors}" CanUserAddRows="True" CanUserDeleteRows="True" AutoGenerateColumns="False" Height="100">
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="FontWeight" Value="Bold"/>
@@ -161,9 +161,13 @@
                 </StackPanel>
             </Grid>
         </GroupBox>
-        <!--<Button Content="Previous" HorizontalAlignment="Left" Margin="30,665,0,0" VerticalAlignment="Top" Height="25" Width="100" Click="Back"/>
-        <Button Content="Next" HorizontalAlignment="Left" Margin="140,665,0,0" VerticalAlignment="Top" Height="25" Width="100" Click="Forward"/>-->
+        <Button Content="&#x25C0;" HorizontalAlignment="Left" Margin="90,665,0,0" VerticalAlignment="Top" Height="25" Width="40" Click="Previous"/>
+        <Label Content="Record:" HorizontalAlignment="Left" Margin="140,665,0,0" VerticalAlignment="Top" FontWeight="Bold"></Label>
+        <Label Content="{Binding CurrentRecord}" HorizontalAlignment="Left" Margin="200,665,0,0" VerticalAlignment="Top"></Label>
+        <Label Content="of" HorizontalAlignment="Left" Margin="235,665,0,0" VerticalAlignment="Top"></Label>
+        <Label Content="{Binding TotalRecords}" HorizontalAlignment="Left" Margin="260,665,0,0" VerticalAlignment="Top"></Label>
+        <Button Content="&#x25B6;" HorizontalAlignment="Left" Margin="305,665,0,0" VerticalAlignment="Top" Height="25" Width="40" Click="Next"/>
         <Button Content="Add part" HorizontalAlignment="Left" Margin="508,665,0,0" VerticalAlignment="Top" Height="25" Width="100" Click="AddPart"/>
-        <Button Content="Export to CSV" HorizontalAlignment="Left" Margin="621,665,0,0" VerticalAlignment="Top" Height="25" Width="100"/>
+        <Button Content="Export" HorizontalAlignment="Left" Margin="621,665,0,0" VerticalAlignment="Top" Height="25" Width="100" Click="Export"/>
     </Grid>
 </Window>
