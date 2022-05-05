@@ -4,8 +4,7 @@ namespace JankeImportAssistant.Model
 {
     public class PartViewModel
     {
-
-// Parameterless constructor for view init
+        // Parameterless constructor for view init
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public PartViewModel() { }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -26,7 +25,7 @@ namespace JankeImportAssistant.Model
         public string Multi { get; set; }
         public string Group { get; set; }
         public string LeadTime { get; set; }
-        public string? Colour { get; set; }
+        public string? Colour { get; set; } = string.Empty;
         public string? SurfaceArea { get; set; }
         public ObservableCollection<Component> Components { get; } = new ObservableCollection<Component>();
         public ObservableCollection<Labor> Labors { get; } = new ObservableCollection<Labor>();

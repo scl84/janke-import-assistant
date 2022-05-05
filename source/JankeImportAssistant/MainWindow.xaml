@@ -150,13 +150,13 @@
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Orientation="Vertical" Margin="20,0,80,0">
                         <Label Content="Colour" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-                        <ComboBox Width="280" ItemsSource="{Binding Configuration.Colours}" DisplayMemberPath="Label" SelectedValuePath="Code" SelectedValue="{Binding Path=Colour}"/>
+                        <ComboBox x:Name="colourDropdown" Width="280" ItemsSource="{Binding Configuration.Colours}" DisplayMemberPath="Label" SelectedValuePath="Code" SelectedValue="{Binding Path=Colour}"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Margin="20,0,0,0">
                         <Label HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top">
                             <Run Text="Surface Area ( mm&#x00B2; )"/>
                         </Label>
-                        <TextBox FontWeight="Normal" TextWrapping="Wrap" HorizontalAlignment="Left" Text="{Binding SurfaceArea}" Width="250" Margin="0,0,0,0"/>
+                        <TextBox IsEnabled="{Binding ElementName=colourDropdown, Path=SelectedValue.Length, Mode=OneWay}" FontWeight="Normal" TextWrapping="Wrap" HorizontalAlignment="Left" Text="{Binding SurfaceArea}" Width="250" Margin="0,0,0,0"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
