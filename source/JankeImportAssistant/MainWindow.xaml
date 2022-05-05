@@ -161,12 +161,13 @@
                 </StackPanel>
             </Grid>
         </GroupBox>
-        <Button Content="&#x25C0;" HorizontalAlignment="Left" Margin="90,665,0,0" VerticalAlignment="Top" Height="25" Width="40" Click="Previous"/>
-        <Label Content="Record:" HorizontalAlignment="Left" Margin="140,665,0,0" VerticalAlignment="Top" FontWeight="Bold"></Label>
-        <Label Content="{Binding CurrentRecord}" HorizontalAlignment="Left" Margin="200,665,0,0" VerticalAlignment="Top"></Label>
-        <Label Content="of" HorizontalAlignment="Left" Margin="235,665,0,0" VerticalAlignment="Top"></Label>
-        <Label Content="{Binding TotalRecords}" HorizontalAlignment="Left" Margin="260,665,0,0" VerticalAlignment="Top"></Label>
-        <Button Content="&#x25B6;" HorizontalAlignment="Left" Margin="305,665,0,0" VerticalAlignment="Top" Height="25" Width="40" Click="Next"/>
+        <Button Content="Import" HorizontalAlignment="Left" Margin="35,665,0,0" VerticalAlignment="Top" Height="25" Width="100" Click="Import"/>
+        <Button Content="&#x25C0;" HorizontalAlignment="Left" Margin="170,665,0,0" VerticalAlignment="Top" Height="25" Width="40" Click="Previous"/>
+        <Label Content="Record:" HorizontalAlignment="Left" Margin="220,665,0,0" VerticalAlignment="Top" FontWeight="Bold"></Label>
+        <Label Content="{Binding CurrentRecord}" HorizontalAlignment="Left" Margin="280,665,0,0" VerticalAlignment="Top"></Label>
+        <Label Content="of" HorizontalAlignment="Left" Margin="315,665,0,0" VerticalAlignment="Top"></Label>
+        <Label Content="{Binding TotalRecords}" HorizontalAlignment="Left" Margin="340,665,0,0" VerticalAlignment="Top"></Label>
+        <Button Content="&#x25B6;" HorizontalAlignment="Left" Margin="385,665,0,0" VerticalAlignment="Top" Height="25" Width="40" Click="Next"/>
         <Button Content="Add part" HorizontalAlignment="Left" Margin="508,665,0,0" VerticalAlignment="Top" Height="25" Width="100" Click="AddPart"/>
         <Button Content="Export" HorizontalAlignment="Left" Margin="621,665,0,0" VerticalAlignment="Top" Height="25" Width="100" Click="Export"/>
     </Grid>

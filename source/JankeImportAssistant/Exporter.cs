@@ -12,7 +12,6 @@ namespace JankeImportAssistant
 {
     public class Exporter
     {
-        private const decimal PaintCoefficient = 0.000000284M;
         private readonly List<PartViewModel> _partViewModelList;
 
         public Exporter(List<PartViewModel> partViewModelList)
@@ -71,10 +70,10 @@ namespace JankeImportAssistant
             if (string.IsNullOrEmpty(partViewModel.Colour) || string.IsNullOrEmpty(partViewModel.SurfaceArea)) return part;
             
             var surfaceArea = decimal.Parse(partViewModel.SurfaceArea, CultureInfo.InvariantCulture);
-            var kgOfPaint = (surfaceArea * PaintCoefficient).ToString(CultureInfo.InvariantCulture);
+            var kgOfPaint = (surfaceArea * App.PaintCoefficient).ToString(CultureInfo.InvariantCulture);
 
             part.Components.Add(new Component("M", partViewModel.Colour, "Kg", kgOfPaint));
-            part.Components.Add(new Component("M", "8310-0000", "Kg", kgOfPaint));
+            part.Components.Add(new Component("M", App.ZincUndercoatCode, "Kg", kgOfPaint));
 
             return part;
         }
