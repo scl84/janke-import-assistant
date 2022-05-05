@@ -10,6 +10,8 @@ namespace JankeImportAssistant
 {
     public partial class App : Application
     {
+        public const decimal PaintCoefficient = 0.000000284M;
+        public const string ZincUndercoatCode = "8310-0000";
         private const string ConfigMissingErrorMessage = "Missing configuration file";
         private const string ConfigInvalidErrorMessage = "Invalid configuration file, refer to manual";
 

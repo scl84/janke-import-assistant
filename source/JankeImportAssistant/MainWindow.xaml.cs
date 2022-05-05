@@ -7,7 +7,7 @@ namespace JankeImportAssistant
 {    public partial class MainWindow : Window
     {
         private readonly Configuration _configuration;
-        private readonly List<PartViewModel> _partList = new();
+        private List<PartViewModel> _partList = new();
         private PartViewModel _part;
         private int _index = 0;
 
@@ -33,6 +33,23 @@ namespace JankeImportAssistant
             _partList.Add(_part);
             DataContext = _part;
         }
+        private void Import(object sender, RoutedEventArgs e)
+        {
+            var importer = new Importer(_configuration);
+            var importedData = importer.Import();
+
+            if (importedData == null || importedData.Count == 0)
+            {
+                MessageBox.Show("Unable to import parts, check file validity and try again", "Import Parts", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.No);
+                return;
+            }
+
+            _partList = importedData;
+            _part = importedData[0];
+            _index = 0;
+            DataContext = _part;
+        }
+
 
         private void Export(object sender, RoutedEventArgs e)
         {
