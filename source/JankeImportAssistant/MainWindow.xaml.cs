@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using JankeImportAssistant.Model;
 
@@ -25,6 +26,12 @@ namespace JankeImportAssistant
             if (!_part.IsCompletePart())
             {
                 MessageBox.Show("Complete this part before adding a new one", "Add Part", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.No);
+                return;
+            }
+
+            if (_partList.Count(part => _part.PartNumber.Equals(part.PartNumber)) > 1)
+            {
+                MessageBox.Show("A part with this number has already been entered", "Add Part", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.No);
                 return;
             }
 
