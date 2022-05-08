@@ -43,18 +43,29 @@ namespace JankeImportAssistant
         private void Import(object sender, RoutedEventArgs e)
         {
             var importer = new Importer(_configuration);
-            var importedData = importer.Import();
+            var result = importer.Import();
 
-            if (importedData == null || importedData.Count == 0)
+            switch (result.Status)
             {
-                MessageBox.Show("Unable to import parts, check file validity and try again", "Import Parts", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.No);
-                return;
+                case ImportStatus.Cancel:
+                    return;
+                case ImportStatus.Ok:
+                    if (result.Parts == null || result.Parts.Count == 0)
+                    {
+                        MessageBox.Show("Unable to import parts, check file validity and try again", "Import Parts", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.No);
+                        return;
+                    }
+                    _partList = result.Parts;
+                    _part = result.Parts[0];
+                    _index = 0;
+                    DataContext = _part;
+                    return;
+                case ImportStatus.Error:
+                    MessageBox.Show(result.Message, "Import Parts", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.No);
+                    return;
+                default:
+                    throw new Exception("Export failed with unknown status");
             }
-
-            _partList = importedData;
-            _part = importedData[0];
-            _index = 0;
-            DataContext = _part;
         }
 
 
