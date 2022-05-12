@@ -21,10 +21,10 @@ namespace JankeImportAssistant.Model
         public int? UserId => Configuration.UserId;
         public string PartNumber { get; set; }
         public string Description { get; set; }
-        public string Revision { get; set; }
-        public string Multi { get; set; }
-        public string Group { get; set; }
-        public string LeadTime { get; set; }
+        public string Revision { get; set; } = "A";
+        public string Multi { get; set; } = "50";
+        public string Group { get; set; } = "JANKE";
+        public string LeadTime { get; set; } = "1";
         public string? Colour { get; set; } = string.Empty;
         public string? SurfaceArea { get; set; }
         public ObservableCollection<Component> Components { get; } = new ObservableCollection<Component>();
